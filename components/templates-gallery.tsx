@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { createClient } from '@/lib/supabase/client'
-import { Copy, Trash2, Edit2, Download } from 'lucide-react'
+import { Copy, Trash2, Edit2, Download, Zap } from 'lucide-react'
+import Link from 'next/link'
 
 interface Template {
   id: string
@@ -146,31 +147,32 @@ export function TemplatesGallery({ tenantId, onSelect }: TemplatesGalleryProps) 
 
               {/* Actions */}
               <div className="flex gap-2">
+                <Link href={`/dashboard/labels/editor-pro?templateId=${template.id}`} className="flex-1">
+                  <Button
+                    size="sm"
+                    variant="default"
+                    className="w-full gap-1"
+                  >
+                    <Zap className="h-3 w-3" />
+                    Editor Pro
+                  </Button>
+                </Link>
                 <Button
                   size="sm"
                   variant="outline"
-                  className="flex-1 gap-1"
-                  onClick={() => onSelect?.(template)}
-                >
-                  <Edit2 className="h-3 w-3" />
-                  Usar
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
                   onClick={() => handleDuplicate(template)}
                   title="Duplicar template"
                 >
-                  <Copy className="h-4 w-4" />
+                  <Copy className="h-3 w-3" />
                 </Button>
                 {!template.is_default && (
                   <Button
                     size="sm"
-                    variant="ghost"
+                    variant="outline"
                     onClick={() => handleDelete(template.id)}
                     title="Deletar template"
                   >
-                    <Trash2 className="h-4 w-4 text-destructive" />
+                    <Trash2 className="h-3 w-3 text-destructive" />
                   </Button>
                 )}
               </div>
