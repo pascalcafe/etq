@@ -30,7 +30,7 @@ export default function Page() {
     setError(null)
 
     if (password !== repeatPassword) {
-      setError('Passwords do not match')
+      setError('As senhas não correspondem')
       setIsLoading(false)
       return
     }
@@ -60,8 +60,13 @@ export default function Page() {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Sign up</CardTitle>
-              <CardDescription>Create a new account</CardDescription>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
+                  <span className="text-sm font-bold text-primary-foreground">EL</span>
+                </div>
+              </div>
+              <CardTitle className="text-2xl">Criar Conta</CardTitle>
+              <CardDescription>Comece a gerar etiquetas gratuitamente</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSignUp}>
@@ -71,16 +76,14 @@ export default function Page() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="m@example.com"
+                      placeholder="seu@email.com"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="password">Password</Label>
-                    </div>
+                    <Label htmlFor="password">Senha</Label>
                     <Input
                       id="password"
                       type="password"
@@ -90,9 +93,7 @@ export default function Page() {
                     />
                   </div>
                   <div className="grid gap-2">
-                    <div className="flex items-center">
-                      <Label htmlFor="repeat-password">Repeat Password</Label>
-                    </div>
+                    <Label htmlFor="repeat-password">Confirmar Senha</Label>
                     <Input
                       id="repeat-password"
                       type="password"
@@ -101,18 +102,18 @@ export default function Page() {
                       onChange={(e) => setRepeatPassword(e.target.value)}
                     />
                   </div>
-                  {error && <p className="text-sm text-red-500">{error}</p>}
+                  {error && <p className="text-sm text-destructive">{error}</p>}
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Creating an account...' : 'Sign up'}
+                    {isLoading ? 'Criando conta...' : 'Criar Conta'}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                  Already have an account?{' '}
+                  Já tem uma conta?{' '}
                   <Link
                     href="/auth/login"
                     className="underline underline-offset-4"
                   >
-                    Login
+                    Entrar
                   </Link>
                 </div>
               </form>

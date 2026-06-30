@@ -39,7 +39,7 @@ export default function Page() {
         },
       })
       if (error) throw error
-      router.push('/protected')
+      router.push('/dashboard')
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
@@ -53,9 +53,14 @@ export default function Page() {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Login</CardTitle>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
+                  <span className="text-sm font-bold text-primary-foreground">EL</span>
+                </div>
+              </div>
+              <CardTitle className="text-2xl">Bem-vindo</CardTitle>
               <CardDescription>
-                Enter your email below to login to your account
+                Entre com seu email para acessar sua conta
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -66,14 +71,14 @@ export default function Page() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="m@example.com"
+                      placeholder="seu@email.com"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">Senha</Label>
                     <Input
                       id="password"
                       type="password"
@@ -82,18 +87,18 @@ export default function Page() {
                       onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
-                  {error && <p className="text-sm text-red-500">{error}</p>}
+                  {error && <p className="text-sm text-destructive">{error}</p>}
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? 'Logging in...' : 'Login'}
+                    {isLoading ? 'Entrando...' : 'Entrar'}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                  Don&apos;t have an account?{' '}
+                  Não tem uma conta?{' '}
                   <Link
                     href="/auth/sign-up"
                     className="underline underline-offset-4"
                   >
-                    Sign up
+                    Criar conta
                   </Link>
                 </div>
               </form>
