@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import { LogOut, Menu, X } from 'lucide-react'
+import { LogOut, Menu, X, Settings2 } from 'lucide-react'
 
 export default function DashboardLayout({
   children,
@@ -80,6 +80,12 @@ export default function DashboardLayout({
             <Link href="/dashboard/products">
               <Button variant="ghost" className="w-full justify-start">
                 Meus Produtos
+              </Button>
+            </Link>
+            <Link href="/dashboard/products/manage">
+              <Button variant="ghost" className="w-full justify-start gap-2">
+                <Settings2 className="h-4 w-4" />
+                Gerenciar Produtos
               </Button>
             </Link>
             <Link href="/dashboard/settings">
