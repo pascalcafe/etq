@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ProductUploader } from '@/components/product-uploader'
+import { ItemsUploader } from '@/components/items-uploader'
 import { TemplatesGallery } from '@/components/templates-gallery'
 import { CustomSizesManager } from '@/components/custom-sizes-manager'
 import { Card } from '@/components/ui/card'
@@ -44,8 +45,9 @@ export default function ProductsManagePage() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="upload">Upload em Lote</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="upload">Produtos</TabsTrigger>
+          <TabsTrigger value="items">Itens de Cardápio</TabsTrigger>
           <TabsTrigger value="templates">Templates</TabsTrigger>
           <TabsTrigger value="sizes">Tamanhos</TabsTrigger>
         </TabsList>
@@ -55,6 +57,15 @@ export default function ProductsManagePage() {
             tenantId={tenantId}
             onSuccess={() => {
               setTimeout(() => router.push('/dashboard/products'), 2000)
+            }}
+          />
+        </TabsContent>
+
+        <TabsContent value="items" className="space-y-4">
+          <ItemsUploader
+            tenantId={tenantId}
+            onSuccess={(items) => {
+              console.log('[v0] Itens importados:', items)
             }}
           />
         </TabsContent>

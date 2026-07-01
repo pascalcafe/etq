@@ -1,0 +1,23 @@
+Nome,Grupo,Valor,Unidade,Cód. Ref.
+Água Filtrada,Bebidas,5.00,L,AG-001
+Suco Natural - Laranja,Bebidas,8.50,L,SJ-LJ-001
+Suco Natural - Melancia,Bebidas,9.00,L,SJ-ML-001
+Refrigerante 2L,Bebidas,12.00,Unidade,RF-2L-001
+Cerveja Artesanal,Bebidas,15.00,Garrafa,CE-ART-001
+Frango Grelhado,Carnes,45.00,Kg,FR-GRL-001
+Carne Vermelha Premium,Carnes,85.00,Kg,CV-PM-001
+Peixe Fresco,Carnes,65.00,Kg,PX-FR-001
+Arroz Integral,Grãos,3.50,Kg,AR-INT-001
+Feijão Carioca,Grãos,8.00,Kg,FJ-CR-001
+Macarrão Integral,Grãos,4.50,Kg,MC-INT-001
+Salada Verde Mista,Saladas,12.00,Porção,SL-VM-001
+Salada de Beterraba,Saladas,10.00,Porção,SL-BT-001
+Cenoura Ralada,Saladas,8.50,Porção,CEN-RL-001
+Pão Francês,Padaria,0.80,Unidade,PÃO-FR-001
+Pão Integral,Padaria,3.50,Unidade,PÃO-INT-001
+Bolo de Chocolate,Padaria,35.00,Unidade,BL-CH-001
+Torta de Frutas,Padaria,40.00,Unidade,TR-FR-001
+Café Espresso,Bebidas Quentes,5.00,Xícara,CF-ESP-001
+Chá Preto,Bebidas Quentes,3.50,Xícara,CHÁ-PR-001
+Leite Quente,Bebidas Quentes,4.00,Xícara,LT-QT-001
+Chocolate Quente,Bebidas Quentes,6.50,Xícara,CH-QT-001
