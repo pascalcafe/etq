@@ -69,10 +69,10 @@ export function ItemsUploader({ tenantId, onSuccess }: ItemsUploaderProps) {
         const normalizedHeaders = normalizeHeaders(originalHeaders)
 
         // Criar mapa de mapeamento
-        const headerMap: Record<string, string> = {}
-        originalHeaders.forEach((original, idx) => {
-          headerMap[original] = normalizedHeaders[idx]
-        })
+//      const headerMap: Record<string, string> = {}
+//      originalHeaders.forEach((original, idx) => {
+//        headerMap[original] = normalizedHeaders[idx]
+//      })
 
         // Validar colunas esperadas
         const missingColumns = requiredColumns.filter(col =>
