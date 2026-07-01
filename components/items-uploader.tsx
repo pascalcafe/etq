@@ -41,6 +41,7 @@ export function ItemsUploader({ tenantId, onSuccess }: ItemsUploaderProps) {
         .replace(/[óòöô]/g, 'o')
         .replace(/[úùüû]/g, 'u')
         .replace(/ç/g, 'c')
+        .replace(/^_+|_+$/g, "")
         .replace(/[^a-z0-9]/g, '_')
     )
   }
