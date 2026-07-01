@@ -28,23 +28,23 @@ export function ItemsUploader({ tenantId, onSuccess }: ItemsUploaderProps) {
   const [progress, setProgress] = useState(0)
   const [importedItems, setImportedItems] = useState<Item[]>([])
 
-// const requiredColumns = ['nome', 'grupo', 'valor', 'unidade', 'cod_ref']
+ const requiredColumns = ['nome', 'grupo', 'valor', 'unidade', 'cod_ref']
 
  // const normalizeHeaders = (headers: string[]): string[] => {
-    return headers.map(h =>
-      h
-        .toLowerCase()
-        .trim()
-        .replace(/[áàäâ]/g, 'a')
-        .replace(/[éèëê]/g, 'e')
-        .replace(/[íìïî]/g, 'i')
-        .replace(/[óòöô]/g, 'o')
-        .replace(/[úùüû]/g, 'u')
-        .replace(/ç/g, 'c')
-        .replace(/^_+|_+$/g, "")
-        .replace(/[^a-z0-9]/g, '_')
-    )
-  }
+   // return headers.map(h =>
+     // h
+       // .toLowerCase()
+        //.trim()
+     //   .replace(/[áàäâ]/g, 'a')
+      //  .replace(/[éèëê]/g, 'e')
+ //       .replace(/[íìïî]/g, 'i')
+   //     .replace(/[óòöô]/g, 'o')
+     //   .replace(/[úùüû]/g, 'u')
+       // .replace(/ç/g, 'c')
+//      .replace(/^_+|_+$/g, "")
+  //    .replace(/[^a-z0-9]/g, '_')
+ // )
+//}
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0]
