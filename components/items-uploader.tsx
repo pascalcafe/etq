@@ -30,7 +30,7 @@ export function ItemsUploader({ tenantId, onSuccess }: ItemsUploaderProps) {
 
  const requiredColumns = ['nome', 'grupo', 'valor', 'unidade', 'cod_ref']
 
-  const normalizeHeaders = (headers: string[]): string[] => {
+ // const normalizeHeaders = (headers: string[]): string[] => {
     return headers.map(h =>
       h
         .toLowerCase()
