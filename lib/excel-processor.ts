@@ -1,5 +1,6 @@
 // Excel processor utility using SheetJS
 // Processes Nome, Grupo, Valor, Unidade, Cód. Ref. columns
+// Robust parser with alias support for multiple ERP systems
 
 export interface MenuItem {
   nome: string
@@ -9,61 +10,71 @@ export interface MenuItem {
   cod_ref: string
 }
 
-// Column name normalizations (case-insensitive and flexible)
-const columnMappings: Record<string, keyof MenuItem> = {
-  nome: 'nome',
-  product: 'nome',
-  name: 'nome',
-  item: 'nome',
-  produto: 'nome',
-
-  grupo: 'grupo',
-  group: 'grupo',
-  category: 'grupo',
-  categoria: 'grupo',
-  type: 'grupo',
-
-  valor: 'valor',
-  value: 'valor',
-  price: 'valor',
-  preço: 'valor',
-  preco: 'valor',
-  'preço unitário': 'valor',
-
-  unidade: 'unidade',
-  unit: 'unidade',
-  un: 'unidade',
-  medida: 'unidade',
-
-  'cód. ref.': 'cod_ref',
-  'cod. ref.': 'cod_ref',
-  'código ref': 'cod_ref',
-  'codigo ref': 'cod_ref',
-  sku: 'cod_ref',
-  reference: 'cod_ref',
-  código: 'cod_ref',
-  codigo: 'cod_ref',
-}
-
-function normalizeColumnName(name: string): keyof MenuItem | null {
-  const normalized = name
-    .toLowerCase()
-    .trim()
+// Normalize a single header string correctly
+function normalizeHeaderString(text: string): string {
+  return text
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '_') // Replace multiple special chars with single underscore
+    .replace(/^_+|_+$/g, '') // Remove leading/trailing underscores
+}
 
-  // Direct match
-  if (normalized in columnMappings) {
-    return columnMappings[normalized] as keyof MenuItem
-  }
+// Column aliases mapping for maximum flexibility
+const columnAliases: Record<keyof MenuItem, string[]> = {
+  nome: ['nome', 'product', 'name', 'item', 'produto', 'nomeproduto', 'productname', 'itemname'],
+  
+  grupo: ['grupo', 'group', 'category', 'categoria', 'type', 'tipo', 'classification', 'classificacao'],
+  
+  valor: ['valor', 'value', 'price', 'preco', 'preço', 'preço_unitário', 'preço_unit', 'unitprice', 'unit_price', 'amount'],
+  
+  unidade: ['unidade', 'unit', 'un', 'medida', 'measure', 'measurement', 'med'],
+  
+  cod_ref: ['cod_ref', 'codigo', 'código', 'sku', 'reference', 'ref', 'code', 'productcode', 'itemcode', 'referencecode'],
+}
 
-  // Partial matches
-  for (const [key, value] of Object.entries(columnMappings)) {
-    if (key.includes(normalized) || normalized.includes(key)) {
-      return value as keyof MenuItem
+// Detect if a column contains combined data (e.g., "NomeGrupo" → "Name - Grupo")
+function tryDetectCombinedColumn(columnName: string, value: string): { field: keyof MenuItem; separator?: string } | null {
+  const normalized = normalizeHeaderString(columnName)
+  
+  // Check for patterns like "nomegrp", "namecategory", etc.
+  for (const field of Object.keys(columnAliases) as (keyof MenuItem)[]) {
+    const aliases = columnAliases[field]
+    for (const alias of aliases) {
+      if (normalized.includes(alias)) {
+        // Found a field in the column name
+        // Check if value contains separator patterns
+        if (value.includes(' - ') || value.includes(' | ') || value.includes(';')) {
+          const separator = value.includes(' - ') ? ' - ' : value.includes(' | ') ? ' | ' : ';'
+          return { field, separator }
+        }
+      }
     }
   }
+  
+  return null
+}
 
+function findFieldForColumn(columnName: string): keyof MenuItem | null {
+  const normalized = normalizeHeaderString(columnName)
+  
+  // Direct match against aliases
+  for (const [field, aliases] of Object.entries(columnAliases) as [keyof MenuItem, string[]][]) {
+    if (aliases.includes(normalized)) {
+      return field
+    }
+  }
+  
+  // Partial match - check if alias is contained in normalized name
+  for (const [field, aliases] of Object.entries(columnAliases) as [keyof MenuItem, string[]][]) {
+    for (const alias of aliases) {
+      if (normalized.includes(alias) || alias.includes(normalized)) {
+        return field
+      }
+    }
+  }
+  
   return null
 }
 
